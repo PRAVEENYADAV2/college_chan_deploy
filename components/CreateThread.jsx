@@ -10,6 +10,7 @@ import imageCompression from 'browser-image-compression';
 
 
 const CreatePostForm = ({ boardId }) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -75,6 +76,7 @@ const CreatePostForm = ({ boardId }) => {
     }, [isDragging]);
 
     const handleSubmit = async (e) => {
+        setIsLoading(true)
         e.preventDefault();
         const formData = new FormData(e.target);
         const mediaFiles = formData.getAll("media");
@@ -202,7 +204,7 @@ const CreatePostForm = ({ boardId }) => {
 
                         <div>
                             <button type="submit" id="form-submit-button" className="bg-blue-500 text-white rounded-sm p-2 w-full">
-                                Submit
+                                {isLoading ? <span>Loading...</span> : <span>Submit</span>}
                             </button>
                         </div>
                     </form>
