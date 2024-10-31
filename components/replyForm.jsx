@@ -7,7 +7,7 @@ import imageCompression from 'browser-image-compression';
 export default function ReplyForm({ threadId, whomToReply }) {
     const [showForm, setShowForm] = useState(false);
     const [replyContent, setReplyContent] = useState("");
-    const textareaRef = useRef < HTMLTextAreaElement | null > (null);
+    const textareaRef = useRef(null);
 
     const handleReplySubmit = async (e) => {
         e.preventDefault();

@@ -4,7 +4,8 @@ import ReplyForm from "@/components/replyForm";
 import TrackIP from "@/components/TrackIP";  // Import the IP tracking component
 export default async function Page({ params }) {
     // Fetching thread and replies
-    const threadId = +params.id;
+    const { id } = await params;  // Await the params object
+    const threadId = +id;  // Now you can use id safely
     const [thread, replies] = await getThreadsAndReplies(threadId);
 
     // console.log(replies)
