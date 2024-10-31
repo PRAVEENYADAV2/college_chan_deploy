@@ -3,7 +3,7 @@ import pool from '@/lib/db';
 
 export async function POST(req, { params }) {
     try {
-        const { thread_id } = params;
+        const { thread_id } = await params;
 
         // Extract IP address
         const ip_address = req.headers.get('x-forwarded-for') || req.ip || '0.0.0.0';
