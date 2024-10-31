@@ -6,10 +6,12 @@ import imageCompression from 'browser-image-compression';
 
 export default function ReplyForm({ threadId, whomToReply }) {
     const [showForm, setShowForm] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [replyContent, setReplyContent] = useState("");
     const textareaRef = useRef(null);
 
     const handleReplySubmit = async (e) => {
+        setIsLoading(true)
         e.preventDefault();
         const formData = new FormData(e.target);
         const mediaFiles = formData.getAll("media");
@@ -65,7 +67,7 @@ export default function ReplyForm({ threadId, whomToReply }) {
             textareaRef.current.setSelectionRange(initialReply.length, initialReply.length);
         }
     }, [showForm, whomToReply]);
-    
+
 
     return (
         <div className="mt-2">
@@ -77,31 +79,33 @@ export default function ReplyForm({ threadId, whomToReply }) {
             >
                 {showForm ? "Cancel" : "Reply"}
             </button>
+                    <div>
 
-            {showForm && (
-                <form onSubmit={handleReplySubmit} className="mt-4">
-                    <textarea
-                        ref={textareaRef}
-                        value={replyContent}
-                        onChange={(e) => setReplyContent(e.target.value)}
-                        placeholder="Type your reply..."
-                        className="w-full p-2 border rounded mb-2 dark:bg-gray-900"
-                        rows={3}
-                        name="content"
-                        required
-                    ></textarea>
+                        {showForm && (
+                            <form onSubmit={handleReplySubmit} className="mt-4">
+                                <textarea
+                                    ref={textareaRef}
+                                    value={replyContent}
+                                    onChange={(e) => setReplyContent(e.target.value)}
+                                    placeholder="Type your reply..."
+                                    className="w-full p-2 border rounded mb-2 dark:bg-gray-900"
+                                    rows={3}
+                                    name="content"
+                                    required
+                                ></textarea>
 
-                    <input
-                        type="file"
-                        accept="image/*"
-                        name="media"
-                        className="ml-2 border rounded p-1"
-                    />
-                    <button type="submit" className="bg-blue-500 text-white p-2 rounded ml-2">
-                        Submit Reply
-                    </button>
-                </form>
-            )}
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    name="media"
+                                    className="ml-2 border rounded p-1"
+                                />
+                                <button type="submit" className="bg-blue-500 text-white p-2 rounded ml-2">
+                                    {!isLoading ? <span>Submit Reply</span> : <span>Loading ...</span>}
+                                </button>
+                            </form>
+                        )}
+                    </div>
         </div>
     );
 }
