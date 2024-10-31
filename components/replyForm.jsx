@@ -58,12 +58,14 @@ export default function ReplyForm({ threadId, whomToReply }) {
     };
 
     useEffect(() => {
-        if (showForm && textareaRef.current) {
-            setReplyContent(`>>> ${whomToReply}  `);
+        if (showForm && textareaRef.current && !replyContent.includes(`>>> ${whomToReply}`)) {
+            const initialReply = `>>> ${whomToReply}  `;
+            setReplyContent(initialReply);
             textareaRef.current.focus();
-            textareaRef.current.setSelectionRange(replyContent.length, replyContent.length);
+            textareaRef.current.setSelectionRange(initialReply.length, initialReply.length);
         }
-    }, [showForm, whomToReply, replyContent.length]);
+    }, [showForm, whomToReply]);
+    
 
     return (
         <div className="mt-2">
