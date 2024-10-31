@@ -9,7 +9,7 @@ export default function Boards() {
     useEffect(() => {
         const fetchBoards = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/boards');
+                const response = await fetch('/api/boards');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
