@@ -14,8 +14,8 @@ const CreatePostForm = ({ boardId }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-    const formRef = useRef < HTMLDivElement > (null);
-    const dragHandleRef = useRef < HTMLButtonElement > (null);
+    const formRef = useRef(null);
+    const dragHandleRef = useRef(null);
 
 
 

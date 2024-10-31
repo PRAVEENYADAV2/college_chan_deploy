@@ -1,7 +1,7 @@
 import getThreads from "@/lib/getThreads";
 import CreatePostForm from '@/components/CreateThread'
 export default async function Page({ params }) {
-    const board_id = params.board_id;
+    const { board_id } = await params; // Await params to access board_id
     const [threads_data, board_data] = await getThreads(+board_id);
     const threads = threads_data;
     const boardName = board_data[0].name;
@@ -11,7 +11,7 @@ export default async function Page({ params }) {
         <div className="bg-yellow-50 w-full min-h-[100vh] pt-[10vh]">
             <div className="container mx-auto px-4 py-8 bg-yellow-50">
                 <div className="text-center flex gap-3 items-center justify-center mb-10">
-                    <h1 className="text-4xl font-bold text-purple-800">/{params.board_id}/ {boardName}</h1>
+                    <h1 className="text-4xl font-bold text-purple-800">/{board_id}/ {boardName}</h1>
                     {/* <button className="text-3xl dark:text-black" onClick={handleOpen}>
                         <IoCreateOutline />
                     </button> */}
