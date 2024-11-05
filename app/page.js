@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import Header from '@/components/Home_Header.jsx';
 import Boards from '@/components/Boards';
 import Popular_Posts from "@/components/Popular_Posts";
@@ -17,6 +18,7 @@ export default async function Home() {
 
   return (
     <div className="bg-yellow-50 min-h-[100dvh] dark:bg-slate-950">
+      <Analytics />
       <div className="w-full max-w-[900px] min-h-4 m-auto md:p-10 p-3">
         <Header />
         <Boards  />
