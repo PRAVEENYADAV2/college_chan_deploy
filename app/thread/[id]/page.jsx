@@ -2,6 +2,17 @@ import getThreadsAndReplies from "@/lib/getThreadsAndReplies";
 import { format } from "date-fns";
 import ReplyForm from "@/components/replyForm";
 import TrackIP from "@/components/TrackIP";  // Import the IP tracking component
+// lib/ipCrypto.ts
+import { createHmac } from 'crypto';
+
+// Get secret from environment variables (NEVER hardcode)
+const SECRET = process.env.IP_ENCRYPTION_SECRET || 'default-secret-unsafe';
+
+export function encryptIP(ip) {
+    const hmac = createHmac('sha256', SECRET);
+    hmac.update(ip);
+    return hmac.digest('hex');
+}
 export default async function Page({ params }) {
     // Fetching thread and replies
     const { id } = await params;  // Await the params object
@@ -65,7 +76,7 @@ export default async function Page({ params }) {
                             </div>
 
                             <small className="text-gray-500">
-                                Posted by {reply.ip_address} on {format(new Date(reply.created_at), 'MMMM dd, yyyy, hh:mm a')}
+                                Posted by {encryptIP(reply.ip_address)} on {format(new Date(reply.created_at), 'MMMM dd, yyyy, hh:mm a')}
                             </small>
                             <ReplyForm threadId={thread[0].id} whomToReply={`${reply.id}`} />
                             <hr className="my-4" />
