@@ -11,7 +11,7 @@ const SECRET = process.env.IP_ENCRYPTION_SECRET || 'default-secret-unsafe';
 export function encryptIP(ip) {
     const hmac = createHmac('sha256', SECRET);
     hmac.update(ip);
-    return hmac.digest('hex');
+    return hmac.digest('base64url').substring(0, 10);
 }
 export default async function Page({ params }) {
     // Fetching thread and replies
